@@ -2,8 +2,8 @@ package com.codepub.demo;
 
 import java.util.function.Function;
 
-public class DemoFunction implements Function<String, String>{
-    @Override
+public class DemoFunction implements Function<String, String> {
+
     public String apply(String s) {
         return "s"+"2";
     }
