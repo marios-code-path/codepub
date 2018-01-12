@@ -1,5 +1,6 @@
-package com.riffworld.demo;
+package com.codepub.test;
 
+import com.codepub.demo.DemoFunction;
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.junit.runner.RunWith;

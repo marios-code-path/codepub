@@ -1,4 +1,4 @@
-package com.riffworld.demo;
+package com.codepub.demo;
 
 import java.util.function.Function;
 
