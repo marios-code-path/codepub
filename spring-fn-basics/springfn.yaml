@@ -1,22 +1,22 @@
 apiVersion: projectriff.io/v1
 kind: Topic
 metadata:
-  name: demoinput
+  name: cin
 ---
 
 apiVersion: projectriff.io/v1
 kind: Topic
 metadata:
-  name: demooutput
+  name: cout
 ---
 
 apiVersion: projectriff.io/v1
 kind: Function
 metadata:
-  name: demofn
+  name: springfn
 spec:
   protocol: pipes
-  input: demoinput
-  output: demooutput
+  input: cin
+  output: cout
   container:
-    image: projectriff/spring-fn-basics:0.0.1
+    image: projectriff/springfn:0.0.2

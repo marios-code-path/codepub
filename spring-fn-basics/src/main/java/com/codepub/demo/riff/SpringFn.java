@@ -3,25 +3,15 @@ package com.codepub.demo.riff;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.function.Function;
 
 @Log
-@SpringBootApplication
-public class SpringFunctionApp {
-
-    public static void main(String... args) {
-        log.info("In the beginning, a context loads.");
-        System.out.println("OO Context load.");
-        System.err.println("EE Context load.");
-        SpringApplication.run(SpringFunctionApp.class, args);
-    }
+class SpringFn implements Function<String, String> {
 
     @Autowired
     private ConfigurableApplicationContext context;
@@ -41,9 +31,7 @@ public class SpringFunctionApp {
         }
     }
 
-    @Bean
-    public SpringFn simplFn() {
-        return new SpringFn();
+    public String apply(String op) {
+        return op + " received!";
     }
 }
-
