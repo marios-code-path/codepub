@@ -1,13 +1,13 @@
 apiVersion: projectriff.io/v1
 kind: Topic
 metadata:
-  name: cin
+  name: springin
 ---
 
 apiVersion: projectriff.io/v1
 kind: Topic
 metadata:
-  name: cout
+  name: springout
 ---
 
 apiVersion: projectriff.io/v1
@@ -16,7 +16,7 @@ metadata:
   name: springfn
 spec:
   protocol: pipes
-  input: cin
-  output: cout
+  input: springin
+  output: springout
   container:
-    image: projectriff/springfn:0.0.2
+    image: mariogray/springfn:0.0.3

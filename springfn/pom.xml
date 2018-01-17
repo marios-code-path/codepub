@@ -4,12 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.codepub</groupId>
-	<artifactId>spring-fn-basics</artifactId>
+	<artifactId>spring-fn-demo</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
-
-	<name>demofn</name>
-	<description>basic Spring Riff function</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,10 +25,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-function-web</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

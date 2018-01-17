@@ -18,8 +18,8 @@ public class SpringFunctionApp {
 
     public static void main(String... args) {
         log.info("In the beginning, a context loads.");
-        System.out.println("OO Context load.");
-        System.err.println("EE Context load.");
+        System.out.println("OUT Context load.");
+        System.err.println("ERR Context load.");
         SpringApplication.run(SpringFunctionApp.class, args);
     }
 
@@ -42,7 +42,7 @@ public class SpringFunctionApp {
     }
 
     @Bean
-    public SpringFn simplFn() {
+    public SpringFn springFn() {
         return new SpringFn();
     }
 }
