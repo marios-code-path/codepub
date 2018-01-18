@@ -1,5 +1,6 @@
 package com.codepub.demo.riff;
 
+import com.codepub.demo.riff.function.SpringFn;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
