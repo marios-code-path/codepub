@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@DirtiesContext
 //@TestPropertySource(properties = "function.uri=file:target/test-classes"
-//        + "?handler=com.codepub.demo.riff.function.SpringFn,com.codepub.demo.riff.function.DemoFunction")
+//        + "?handler=com.codepub.demo.riff.function.SpringDemoFunction,com.codepub.demo.riff.function.DemoFunction")
 public class DemoApplicationTests {
 //    @Autowired
 //    private TestRestTemplate rest;

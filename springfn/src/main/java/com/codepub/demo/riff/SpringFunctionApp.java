@@ -1,6 +1,6 @@
 package com.codepub.demo.riff;
 
-import com.codepub.demo.riff.function.SpringFn;
+import com.codepub.demo.riff.function.SpringDemoFunction;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -43,8 +43,8 @@ public class SpringFunctionApp {
     }
 
     @Bean
-    public SpringFn springFn() {
-        return new SpringFn();
+    public SpringDemoFunction springFn() {
+        return new SpringDemoFunction();
     }
 }
 
