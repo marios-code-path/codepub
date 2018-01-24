@@ -9,9 +9,14 @@
 	<packaging>jar</packaging>
 
 	<properties>
+		<spring-cloud-stream.version>Ditmars.SR3</spring-cloud-stream.version>
+		<spring-cloud-task.version>1.1.2.RELEASE</spring-cloud-task.version>
+		<wrapper.version>1.0.9.RELEASE</wrapper.version>
+		<spring-boot.version>1.5.9.RELEASE</spring-boot.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
+		<spring-cloud-fn.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-fn.version>
 	</properties>
 
 	<parent>
@@ -22,6 +27,19 @@
 	</parent>
 
 	<dependencies>
+		<!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-function-dependencies</artifactId>
+			<version>${spring-cloud-fn.version}</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-function-core</artifactId>
+			<version>${spring-cloud-fn.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
