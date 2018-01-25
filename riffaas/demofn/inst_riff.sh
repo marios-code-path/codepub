@@ -1,17 +1,20 @@
 #!/bin/bash
 
+#TODO extract from pom?
+export DEMO_VERSION=0.0.1
+
+eval $(minikube docker-env)
+
+. ../bouncer.sh
+
 set -a -e -v
 
-if [ -v $RIFFHOME ]; then
-	echo Set \$RIFFHOME root of riff directory.
-	exit 0
-fi
-
-PROJDIR=`pwd`
+PROJDIR=${PWD}
 
 mvn clean package
 
-pushd $RIFFHOME
-	./riff build -n demofn -v 0.0.1 -f $PROJDIR
-	./riff apply -f $PROJDIR
+pushd $RIFF_HOME
+	./riff build -n demofn -v $DEMO_VERSION -f $PROJDIR
+# Uh... How do I know when update should be use ? ( kubectl get pods | grep demo ?  ) 
+	./riff apply -n demofn -v $DEMO_VERSION -f $PROJDIR
 popd
