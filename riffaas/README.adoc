@@ -70,12 +70,24 @@ shell ]. Today, I am going to explore the aspect of running
 a small spring program as a function. The most basic function 
 needs to be a class such as the following class:
 
-.MyFunction.java
+.MinimumFunction.java
 [source,java]
----
-public class MyFunction extends java.util.function.Function<TypeA, TypeB> {
-  public TypeA apply(TypeB arg) {
-    return new TypeA(arg);
+----
+public class MyFunction extends java.util.function.Function<String,String> {
+  public String apply(String arg) {
+    return String.format("%s received", arg);
   }
 }  
----
+----
+
+Riff Supports another functional type called the supplier.
+
+.MinimumSupplier.java
+[source,java]
+----
+public class MySupplier extends java.util.function.Supplier<Long> {
+  public Long apply() { 
+    return  System.currentTimeMillis();
+  }
+}
+----
