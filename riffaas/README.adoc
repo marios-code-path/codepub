@@ -31,11 +31,7 @@ Alternatively, read the <<X7, Bootstrapping>> section and take a look
 at the example script.
 **********************************************************************
 
-Common Use Cases for Functions
-------------------------------
 [[X7]]
-Bootstrapping
--------------
 Preparing the environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 Either use your existing Kubernetes environement, or alternatively 
@@ -44,46 +40,42 @@ locally.  In this example, I am running a basic Minikube distrobution
 with most recent hardware (16+ Gigs of Ram, 4 cores) based laptop or
 Desktop configurations.
 
-.Bootstrap source
-[source,script]
+[[X8]]
+Installation with Helm 
+~~~~~~~~~~~~~~~~~~~~~~
+Use Brew if you have macOS:  
+[source,script,indent=0]
 ----
-#!/bin/sh -x
-# <1>
-minikube start --memory=4096
-
-pushd $(go env GOPATH)  #<5>
-    # <2>
-    git clone -o upstream https://github.com/projectriff/kubernetes-model src/github.com/fabric8io/kubernetes-model/
-    git clone -o upstream https://github.com/projectriff/function-sidecar src/github.com/projectriff/function-sidecar/
-    git clone -o upstream https://github.com/projectriff/topic-controller src/github.com/projectriff/topic-controller/
-    git clone -o upstream https://github.com/projectriff/http-gateway src/github.com/projectriff/http-gateway/
-
-    pushd $RIFF_HOME
-        git clone -o upstream https://github.com/projectriff/riff.git
-        git clone -o upstream https://github.com/projectriff/function-controller.git
-        git clone -o upstream https://github.com/projectriff/java-function-invoker.git
-        git clone -o upstream https://github.com/projectriff/node-function-invoker.git
-        git clone -o upstream https://github.com/projectriff/shell-function-invoker.git
-        git clone -o upstream https://github.com/projectriff/python2-function-invoker.git
-
-        ./build-model upstream riff
-        eval $(minikube docker-env)
-        ./build-function-sidecar upstream master
-        ./build-http-gateway upstream master
-        ./build-topic-controller upstream master
-        # <3>
-        kubectl apply -f config/types
-        ./build-function-controller upstream master
-        ./build-function-invokers upstream master
-        # <4>
-        kubectl apply -f config/kafka
-        kubectl apply -f config
-        kubectl apply -f config/rbac
-        kubectl apply -f config/zipkin
-    popd
-popd
+include::quick-helm.sh[lines=4]
 ----
-<1> started
-<2> apply
-<3> complete
 
+Add the Helm chart for RIFF:
+[source,script,indent=0]
+----
+include::helm-install.sh[lines=7..8]
+----
+
+Install RIFF:
+[source,script,indent=0]
+----
+include::helm-install.sh[lines=12]
+----
+
+[[X9]]
+Functional Service Developement
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+With Riff, you can implement functions in a few languages
+at the current time of writing : [ Java, Python, Javascript, 
+shell ]. Today, I am going to explore the aspect of running 
+a small spring program as a function. The most basic function 
+needs to be a class such as the following class:
+
+.MyFunction.java
+[source,java]
+---
+public class MyFunction extends java.util.function.Function<TypeA, TypeB> {
+  public TypeA apply(TypeB arg) {
+    return new TypeA(arg);
+  }
+}  
+---
