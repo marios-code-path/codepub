@@ -1,0 +1,89 @@
+Deploying Functions as Eventable Services with RIFF [hint :RIFF Is For Functions]
+=================================================================================
+Mario Gray <mgray@pivotal.io>
+:Author Initials: MVG
+:toc:
+:icons:
+:numbered:
+:website: https://github.com/projectriff/riff
+
+With Functions, you can create software that instantly responds with demand.  
+That is, traditional server-side application development -even simple web forms- 
+must be provisioned for continual online operation. On the other hand, functions
+let you guarantee availability of your application even when it is not online, 
+hence when there is no demand.
+
+RIFF is a FaaS platform that allows you to do exactly that. Deploy an application
+function with elastic server usage.  Serving applications with functions enables
+you to compose a   traditional workflow while effecting additional separation of
+concerns.  Doing this enables your application to become fluid and more maintainable. 
+
+Lets get started by setting up the Riff environment and then creating some functions.
+
+.Bootstrapping Notice
+**********************************************************************
+All of the steps necessary to prepare the environment are outlined in 
+the project Riff Github Repo.
+
+RIFF Github repository https://github.com/projectriff/riff
+
+Alternatively, read the <<X7, Bootstrapping>> section and take a look 
+at the example script.
+**********************************************************************
+
+Common Use Cases for Functions
+------------------------------
+[[X7]]
+Bootstrapping
+-------------
+Preparing the environment
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Either use your existing Kubernetes environement, or alternatively 
+check out these tools that provide a great alternative to installing
+locally.  In this example, I am running a basic Minikube distrobution
+with most recent hardware (16+ Gigs of Ram, 4 cores) based laptop or
+Desktop configurations.
+
+.Bootstrap source
+[source,script]
+----
+#!/bin/sh -x
+# <1>
+minikube start --memory=4096
+
+pushd $(go env GOPATH)  #<5>
+    # <2>
+    git clone -o upstream https://github.com/projectriff/kubernetes-model src/github.com/fabric8io/kubernetes-model/
+    git clone -o upstream https://github.com/projectriff/function-sidecar src/github.com/projectriff/function-sidecar/
+    git clone -o upstream https://github.com/projectriff/topic-controller src/github.com/projectriff/topic-controller/
+    git clone -o upstream https://github.com/projectriff/http-gateway src/github.com/projectriff/http-gateway/
+
+    pushd $RIFF_HOME
+        git clone -o upstream https://github.com/projectriff/riff.git
+        git clone -o upstream https://github.com/projectriff/function-controller.git
+        git clone -o upstream https://github.com/projectriff/java-function-invoker.git
+        git clone -o upstream https://github.com/projectriff/node-function-invoker.git
+        git clone -o upstream https://github.com/projectriff/shell-function-invoker.git
+        git clone -o upstream https://github.com/projectriff/python2-function-invoker.git
+
+        ./build-model upstream riff
+        eval $(minikube docker-env)
+        ./build-function-sidecar upstream master
+        ./build-http-gateway upstream master
+        ./build-topic-controller upstream master
+        # <3>
+        kubectl apply -f config/types
+        ./build-function-controller upstream master
+        ./build-function-invokers upstream master
+        # <4>
+        kubectl apply -f config/kafka
+        kubectl apply -f config
+        kubectl apply -f config/rbac
+        kubectl apply -f config/zipkin
+    popd
+popd
+----
+<1> started
+<2> apply
+<3> complete
+
