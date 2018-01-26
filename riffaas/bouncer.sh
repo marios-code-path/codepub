@@ -1,9 +1,15 @@
-function exitfn() {
+function exitfn {
 	MSG=$1; shift
-	echo >&2 $MSG
+	echo >&2 ${MSG}
 	exit 1
 }
 
-[[ -z ${RIFF_HOME} ]] && exitfn "Set env \$RIFF_HOME too root off local RIFF clone."
+function exists_or_bail {
+	COMMAND=$1; shift
+	type $COMMAND > /dev/null 2>&1 || { exitfn "${COMMAND} is required." }
+}
 
-type minikube > /dev/null 2>&1 || { exitfn "minikube is required."; }
+[[ -z ${RIFF_HOME} || ${RIFF_HOME} == .* ]] && exitfn "Set env \$RIFF_HOME to (absolute) root of local RIFF clone."
+
+exists_or_bail minikube
+exists_or_bail docker

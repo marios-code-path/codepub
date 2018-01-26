@@ -1,9 +1,8 @@
 #!/bin/sh -x
 
-
 minikube start --memory=4096
 
-
+#compiled from: https://github.com/projectriff/riff
 pushd $(go env GOPATH)
     git clone -o upstream https://github.com/projectriff/kubernetes-model src/github.com/fabric8io/kubernetes-model/
     git clone -o upstream https://github.com/projectriff/function-sidecar src/github.com/projectriff/function-sidecar/

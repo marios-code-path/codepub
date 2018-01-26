@@ -1,29 +1,39 @@
-DOCKER_REPO=${USERNAME}
+PARENT=${USERNAME}
+DELIM=""
 
-function docker_images_repo {
-    eval $(minikube docker-env)
+source ./bouncer.sh
 
-    set -v -a
-
-    docker images --filter=reference=${DOCKER_REPO}'*'
+function docker_detect {
+    [[ -z ${DOCKER_HOST//} ]] && eval $(minikube docker-env)
 }
 
-# image container ID for given repository prefix
-function docker_image_of {
-    #set -a -e -v
-    eval $(minikube docker-env)
+# Single or Double namespace environment is assumed
+
+[[ -z ${PARENT//} ]] && DELIM="/" 
+
+function docker_images {
+
+    docker_detect
+
+    docker images --filter=reference=${PARENT}${DELIM}'*'
+}
+
+# input image container name 
+function docker_image_by_name {
 
     IMAGE_NAME=$1; shift
 
-    docker images --filter=reference=${DOCKER_REPO}'/'${IMAGE_NAME} --format "{{.ID}}"
+    docker_detect
+
+    docker images --filter=reference=${PARENT}${DELIM}${IMAGE_NAME} --format "{{.ID}}"
 }
 
-# removes the named image after repository is prefixed
-function docker_rmi {
-
-    eval $(minikube docker-env)
+# input image container name
+function docker_rmi_by_name {
 
     IMAGE_NAME=$1; shift
 
-    docker rmi `docker_image_of ${IMAGE_NAME}`
+    docker_detect
+
+    docker rmi `docker_image_by_name ${IMAGE_NAME}`
 }
