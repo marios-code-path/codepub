@@ -1,8 +1,6 @@
 PARENT=${USERNAME}
 DELIM=""
 
-source ./bouncer.sh
-
 function docker_detect {
     [[ -z ${DOCKER_HOST//} ]] && eval $(minikube docker-env)
 }
@@ -12,10 +10,10 @@ function docker_detect {
 [[ -z ${PARENT//} ]] && DELIM="/" 
 
 function docker_images {
-
+    set -v
     docker_detect
 
-    docker images --filter=reference=${PARENT}${DELIM}'*'
+    echo docker images --filter=reference="${PARENT}${DELIM}'*'"
 }
 
 # input image container name 

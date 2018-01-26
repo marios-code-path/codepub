@@ -1,5 +1,7 @@
 #!/bin/sh -x
 
+source ./bouncer.sh
+
 minikube start --memory=4096
 
 #compiled from: https://github.com/projectriff/riff
