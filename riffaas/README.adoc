@@ -70,7 +70,7 @@ Install RIFF:
 include::helm-install.sh[lines=12]
 ----
 
-***********************************************************************
+**********************************************************************
 NOTE: If your http-gateway fails to receive an External IP after some
 time, then you may need to change service types.
 [source,script,indent=0]
@@ -78,32 +78,32 @@ time, then you may need to change service types.
 kubectl edit service demo-riff-http-gateway
 ----
 Update the `type` field from `LoadBalancer` to `NodePort`, and save.
-***********************************************************************
-[[X9]]
-Functional Service Developement
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Riff supports functions writtin in [ Java et al., Python, Javascript, 
-shell ]. For the first part we will focus on the Java language. We'll
-get to the rest later :).  
+**********************************************************************
 
-.MinimumFunction.java
-[source,java]
+Riff natively supports functions writtin in [ Java et al., Python, Javascript, 
+shell ]. For the first part we will focus on the Java language. We'll
+get to the rest later :). To make our sample workflow we will
+get started my favorite 3 funcional types.
+
+.DemoFunction.java
+[source,java,indent=0]
 ----
-public class MyFunction extends java.util.function.Function<String,String> {
-  public String apply(String arg) {
-    return String.format("%s received", arg);
-  }
-}  
+include::demofn/src/main/java/com/codepub/demo/DemoFunction.java[lines=6..11]
 ----
 
 Riff Supports another functional type called the supplier.
 
-.MinimumSupplier.java
+.DemoSupplier.java
 [source,java]
 ----
-public class MySupplier extends java.util.function.Supplier<Long> {
-  public Long apply() { 
-    return  System.currentTimeMillis();
-  }
-}
+include::demofn/src/main/java/com/codepub/demo/DemoSupplier.java[lines=7..12]
+---- 
+add elipsis
+
+And the Consumer.  Among others [ insert others ] , try them all!
+
+.DemoConsumer.java
+[source,java]
+----
+include::demofn/src/main/java/com/codepub/demo/DemoConsumer.java[lines=10..15]
 ----
