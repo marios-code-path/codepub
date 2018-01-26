@@ -22,23 +22,31 @@ Lets get started by setting up the Riff environment and then creating some funct
 
 .Bootstrapping Notice
 **********************************************************************
-All of the steps necessary to prepare the environment are outlined in 
-the project Riff Github Repo.
+All of the steps necessary to manually prepare the environment are
+outlined in the project Riff Github Repo.
+https://github.com/projectriff/riff
 
-RIFF Github repository https://github.com/projectriff/riff
-
-Alternatively, read the <<X7, Bootstrapping>> section and take a look 
-at the example script.
+I use Helm instead. Its nifty, and features ease of configuration
+especially in a controlled environment such as desktop/laptop.
+Refer to <<X7, Bootstrapping>> section and take a look at the
+example script.  For more information on installing helm, refer to
+the project's Installation guide.
+https://docs.helm.sh/using_helm/#from-script
 **********************************************************************
 
 [[X7]]
 Preparing the environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~
-Either use your existing Kubernetes environement, or alternatively 
+Either use an existing Kubernetes environement, or alternatively 
 check out these tools that provide a great alternative to installing
-locally.  In this example, I am running a basic Minikube distrobution
-with most recent hardware (16+ Gigs of Ram, 4 cores) based laptop or
-Desktop configurations.
+locally:
+
+.I need links
+----
+Inserter k8s playground link
+----
+
+In this demo, I am assuming Minikube `0.24.1` with Helm `2.7.2`.
 
 [[X8]]
 Installation with Helm 
@@ -46,7 +54,8 @@ Installation with Helm
 Use Brew if you have macOS:  
 [source,script,indent=0]
 ----
-include::quick-helm.sh[lines=4]
+brew install kubernetes-helm #<1>
+apt-get install 
 ----
 
 Add the Helm chart for RIFF:
@@ -61,14 +70,21 @@ Install RIFF:
 include::helm-install.sh[lines=12]
 ----
 
+***********************************************************************
+NOTE: If your http-gateway fails to receive an External IP after some
+time, then you may need to change service types.
+[source,script,indent=0]
+----
+kubectl edit service demo-riff-http-gateway
+----
+Update the `type` field from `LoadBalancer` to `NodePort`, and save.
+***********************************************************************
 [[X9]]
 Functional Service Developement
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-With Riff, you can implement functions in a few languages
-at the current time of writing : [ Java, Python, Javascript, 
-shell ]. Today, I am going to explore the aspect of running 
-a small spring program as a function. The most basic function 
-needs to be a class such as the following class:
+Riff supports functions writtin in [ Java et al., Python, Javascript, 
+shell ]. For the first part we will focus on the Java language. We'll
+get to the rest later :).  
 
 .MinimumFunction.java
 [source,java]
