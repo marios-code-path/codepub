@@ -7,13 +7,16 @@ Mario Gray <mgray@pivotal.io>
 :numbered:
 :website: https://github.com/projectriff/riff
 
+Motivation
+~~~~~~~~~~
 With Functions, you can create software that instantly responds with demand.  
 That is, traditional server-side application development -even simple web forms- 
 must be provisioned for continual online operation. On the other hand, functions
 let you guarantee availability of your application even when it is not online, 
 hence when there is no demand.
 
-RIFF is a FaaS platform that allows you to do exactly that. Deploy an application
+Deploying a server-less function will gain dramatic benefit since invoking a function
+is just a topic away.  T
 function with elastic server usage.  Serving applications with functions enables
 you to compose a   traditional workflow while effecting additional separation of
 concerns.  Doing this enables your application to become fluid and more maintainable. 
@@ -50,7 +53,7 @@ In this demo, I am assuming Minikube `0.24.1` with Helm `2.7.2`.
 
 [[X8]]
 Installation with Helm 
-~~~~~~~~~~~~~~~~~~~~~~
+---
 Use Brew if you have macOS:  
 [source,script,indent=0]
 ----
