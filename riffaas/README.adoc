@@ -128,12 +128,9 @@ Executing the function
 In order to get all this working, we will need to create
 the Riff service images and have them deployed.
 we can create our own Dockerfile, service description
-and container images manually.  However since 0.0.3 we get
-the ability to do this with the `riff` comand automatically!
-
-This command lets you create your function by naming it,
-naming the input and output topics, and provide a functional
-class method to execute upon trigger.
+and container images manually.  However, as of version 0.0.3
+that ability comes to `riff` for for free!.  Lets explore 
+setting up an function the riff way.
 
 .RiffSetup-Supplier.sh
 [source,script]
@@ -141,3 +138,6 @@ class method to execute upon trigger.
 include::./demofn/inst.sh[lines=34..37]
 ----
 
+This command lets you create your function by naming it,
+naming the input and output topics, and provide a functional
+class method to execute upon trigger
