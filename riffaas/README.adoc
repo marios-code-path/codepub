@@ -83,10 +83,18 @@ kubectl edit service demo-riff-http-gateway
 Update the `type` field from `LoadBalancer` to `NodePort`, and save.
 **********************************************************************
 
-Riff natively supports functions writtin in [ Java et al., Python, Javascript, 
-shell ]. For the first part we will focus on the Java language. We'll
-get to the rest later :). To make our sample workflow we will
-get started my favorite 3 funcional types.
+[[X9]]
+Writing the Function.
+~~~~~~~~~~~~~~~~~~~~~
+Riff works by routing arguments via pub/sub. A function controller listens
+to requests via http and routes parameters to  listen to specific
+topics for input and 
+to a
+Riff basically works by routing arguments across pipes (backed
+by your favorite Kafka). These pipes respond to a pub/sub ] functions writtin in [ Java et al., Python, Javascript,
+shell ]. This demonstration will use 
+get to the rest later :). To demonstrate a [fn] workflow I will implement
+3 common funcional types - Function, Supplier, Consumer. 
 
 .DemoFunction.java
 [source,java,indent=0]
@@ -109,4 +117,17 @@ And the Consumer.  Among others [ insert others ] , try them all!
 [source,java]
 ----
 include::demofn/src/main/java/com/codepub/demo/DemoConsumer.java[lines=10..15]
+----
+
+Executing The riff function
+----
+In order to get all this working, we wiull need to create
+the Riff service images and have them deployed.
+use the   `riff` command to do this automatically. 
+Example to setup our DemoSupplier function:
+
+.RiffSetup-Supplier.sh
+[source,script]
+----
+include::demofn/inst.sh
 ----
