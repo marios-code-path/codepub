@@ -90,8 +90,8 @@ Riff works by routing arguments via pub/sub channels Consider functions
 as real time data processors that are activate upon message received
 on a topic.
 A function controller listens to requests via http and routes parameters
-and return values to/from function executions.  The current addressability
-for Riff topics exist through the http controller which by default accepts
+and return values to/from function invocations.  The current addressability
+for Riff topics exist by exposure via the http controller which accepts
 String (java.lang.String) arguments and passes them into a designated topic
 given by the scope of the HTTP request.  here are some examples of that 
 communication in action:
@@ -138,6 +138,6 @@ class method to execute upon trigger.
 .RiffSetup-Supplier.sh
 [source,script]
 ----
-include::demofn/inst.sh[lines=34..37]
+include::./demofn/inst.sh[lines=34..37]
 ----
 
