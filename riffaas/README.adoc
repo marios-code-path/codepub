@@ -86,15 +86,19 @@ Update the `type` field from `LoadBalancer` to `NodePort`, and save.
 [[X9]]
 Writing the Function.
 ~~~~~~~~~~~~~~~~~~~~~
-Riff works by routing arguments via pub/sub. A function controller listens
-to requests via http and routes parameters to  listen to specific
-topics for input and 
-to a
-Riff basically works by routing arguments across pipes (backed
-by your favorite Kafka). These pipes respond to a pub/sub ] functions writtin in [ Java et al., Python, Javascript,
-shell ]. This demonstration will use 
-get to the rest later :). To demonstrate a [fn] workflow I will implement
-3 common funcional types - Function, Supplier, Consumer. 
+Riff works by routing arguments via pub/sub channels Consider functions
+as real time data processors that are activate upon message received
+on a topic.
+A function controller listens to requests via http and routes parameters
+and return values to/from function executions.  The current addressability
+for Riff topics exist through the http controller which by default accepts
+String (java.lang.String) arguments and passes them into a designated topic
+given by the scope of the HTTP request.  here are some examples of that 
+communication in action:
+
+This demonstration will use  get to the rest later :). To demonstrate a 
+functional workflow I will implement the three most common or least hated
+functional types - Function, Supplier, Consumer.
 
 .DemoFunction.java
 [source,java,indent=0]
@@ -119,15 +123,21 @@ And the Consumer.  Among others [ insert others ] , try them all!
 include::demofn/src/main/java/com/codepub/demo/DemoConsumer.java[lines=10..15]
 ----
 
-Executing The riff function
-----
-In order to get all this working, we wiull need to create
+Executing the function
+~~~~~~~~~~~~~~~~~~~~~~
+In order to get all this working, we will need to create
 the Riff service images and have them deployed.
-use the   `riff` command to do this automatically. 
-Example to setup our DemoSupplier function:
+we can create our own Dockerfile, service description
+and container images manually.  However since 0.0.3 we get
+the ability to do this with the `riff` comand automatically!
+
+This command lets you create your function by naming it,
+naming the input and output topics, and provide a functional
+class method to execute upon trigger.
 
 .RiffSetup-Supplier.sh
 [source,script]
 ----
-include::demofn/inst.sh
+include::demofn/inst.sh[lines=34..37]
 ----
+
