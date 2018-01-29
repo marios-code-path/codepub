@@ -138,6 +138,9 @@ setting up an function the riff way.
 include::./demofn/inst.sh[lines=34..37]
 ----
 
-This command lets you create your function by naming it,
-naming the input and output topics, and provide a functional
-class method to execute upon trigger
+This command lets you create your function by naming,
+specifiying the input and output topics, and giving
+naming the class to a function method that will produce
+the functional execution.
+
+
