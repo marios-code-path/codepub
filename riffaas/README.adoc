@@ -135,7 +135,7 @@ setting up an function the riff way.
 .RiffSetup-Supplier.sh
 [source,script]
 ----
-include::./demofn/inst.sh[lines=34..37]
+include::/riffaas/demofn/inst.sh[lines=34..37]
 ----
 
 This command lets you create your function by naming,
