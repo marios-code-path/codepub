@@ -1,1 +1,1 @@
-riff publish --input demoinput --reply
+riff publish --input demoinput 
