@@ -5,7 +5,9 @@ Mario Gray <mgray@pivotal.io>
 :toc:
 :icons:
 :numbered:
-:website: https://github.com/projectriff/riff
+:website: https://github.com/projectriff/riff=
+:demofndir: /riffaas/demofn 
+:springfndir: /riffaas/springfn
 
 Motivation
 ~~~~~~~~~~
@@ -15,11 +17,10 @@ must be provisioned for continual online operation. On the other hand, functions
 let you guarantee availability of your application even when it is not online, 
 hence when there is no demand.
 
-Deploying a server-less function will gain dramatic benefit since invoking a function
-is just a topic away.  T
-function with elastic server usage.  Serving applications with functions enables
-you to compose a   traditional workflow while effecting additional separation of
-concerns.  Doing this enables your application to become fluid and more maintainable. 
+Deploying functions as a service brings new paradigm for developing composable 
+applicatiopns, as each function is available with elastic usage, and like traditional
+thread flows, enable a new type of state mutation. Additionally, FaaS enables you to
+compose a traditional workflow while effecting additional separation of concerns.  
 
 Lets get started by setting up the Riff environment and then creating some functions.
 
@@ -49,7 +50,7 @@ locally:
 Inserter k8s playground link
 ----
 
-In this demo, I am assuming Minikube `0.24.1` with Helm `2.7.2`.
+In this demo, I am assuming Minikube `0.25` with Helm `2.7.2`.
 
 [[X8]]
 Installation with Helm 
@@ -81,6 +82,11 @@ time, then you may need to change service types.
 kubectl edit service demo-riff-http-gateway
 ----
 Update the `type` field from `LoadBalancer` to `NodePort`, and save.
+This will expose your http-controller to the local network visible
+to your clients.  Additional networking concerns may be necessary
+for you'll probably have subnetting/firewalls in place - especailly
+in a controlled networking environtment. Check with your system admin
+to determie these types of requirements.
 **********************************************************************
 
 [[X9]]
@@ -103,7 +109,7 @@ functional types - Function, Supplier, Consumer.
 .DemoFunction.java
 [source,java,indent=0]
 ----
-include::demofn/src/main/java/com/codepub/demo/DemoFunction.java[lines=6..11]
+include::{demofndir}/src/main/java/com/codepub/demo/DemoFunction.java[lines=6..11]
 ----
 
 Riff Supports another functional type called the supplier.
@@ -111,7 +117,7 @@ Riff Supports another functional type called the supplier.
 .DemoSupplier.java
 [source,java]
 ----
-include::demofn/src/main/java/com/codepub/demo/DemoSupplier.java[lines=7..12]
+include::{demofndir}/src/main/java/com/codepub/demo/DemoSupplier.java[lines=7..12]
 ---- 
 add elipsis
 
@@ -120,7 +126,7 @@ And the Consumer.  Among others [ insert others ] , try them all!
 .DemoConsumer.java
 [source,java]
 ----
-include::demofn/src/main/java/com/codepub/demo/DemoConsumer.java[lines=10..15]
+include::{demofndir}/src/main/java/com/codepub/demo/DemoConsumer.java[lines=10..15]
 ----
 
 Executing the function
@@ -135,7 +141,7 @@ setting up an function the riff way.
 .RiffSetup-Supplier.sh
 [source,script]
 ----
-include::/riffaas/demofn/inst.sh[lines=34..37]
+include::{demofndir}/inst.sh[lines=34..37]
 ----
 
 This command lets you create your function by naming,
