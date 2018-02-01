@@ -195,10 +195,9 @@ do all this for us!
 .Create the `Supplier`
 [source,script]
 ----
-riff create --name demosupply --input jubjub\
-    --output jabberwock --protocol pipes\
-    --artifact ${DEMO_JAR}\
-    --handler com.codepub.demo.DemoSupplier
+riff create --name demofn --input reverse-in\
+    --protocol pipes --artifact target/demofn-0.0.1.jar\
+    --handler com.codepub.demo.DemoFunction
 ----
 
 This command creates a function.  You specify the input and output topics, a fully
@@ -208,12 +207,13 @@ functions.
 
 The following command will locate your `riff-http-gateway`'s IP and port,
 then create an HTTP request that will be sent to the `demoinput` topic.
-We tell riff to wait for a response payload with the `--reply` parameter.
+We tell riff to wait for a response payload from the input topic with
+the `--reply` parameter.
 
 .riff-publish.sh
 [source,script]
 ----
-riff publish --input demoinput --reply
+riff publish --input demoinput  --data OIRAM --reply
 ----
 
 Ultimately, the `riff publish` comand issues an HTTP request to a REST API.
@@ -222,5 +222,5 @@ You can do the same thing with any standard HTTP client such as `curl`.
 .riff-curl.sh
 [source,script]
 ----
-curl -H Content-Type: text/plain http://192.168.99.100:30101/messages/demoinput -d MARIO
+curl -H Content-Type: text/plain http://192.168.99.100:30101/messages/demoinput -d OIRAM
 ----

@@ -1,1 +1,1 @@
-riff publish --input demoinput 
+riff publish --input reverse-in -d OIRAM --reply

@@ -22,16 +22,16 @@ eval $(minikube docker-env)
 
 DEMO_JAR=target/demofn-${DEMO_VERSION}.jar
 
-riff create --name democlient --input bandersnatch\
+riff create --name democonsumer --input reverse-out\
     --protocol pipes --artifact ${DEMO_JAR}\
     --handler com.codepub.demo.DemoConsumer
 
-riff create --name demofn --input jabberwock\
-    --output bandersnatch\
+riff create --name demofn --input reverse-in\
+    --output reverse-out\
     --protocol pipes --artifact ${DEMO_JAR}\
     --handler com.codepub.demo.DemoFunction
 
-riff create --name demosupply --input jubjub\
-    --output jabberwock --protocol pipes\
+riff create --name demosupplier --input supplier\
+    --output reverse-in --protocol pipes\
     --artifact ${DEMO_JAR}\
     --handler com.codepub.demo.DemoSupplier
